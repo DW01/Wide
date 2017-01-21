@@ -35,7 +35,7 @@ namespace Wide.Tools.Logger
             ContentId = "Logger";
             _model = new LoggerModel();
             Model = _model;
-            IsVisible = false;
+            IsVisible = true;
 
             _view = new LoggerView();
             _view.DataContext = _model;

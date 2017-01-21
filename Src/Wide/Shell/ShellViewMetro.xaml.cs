@@ -61,6 +61,12 @@ namespace Wide.Shell
             docMenus.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             _itemSourceBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             _docContextMenu.SetBinding(ContextMenu.ItemsSourceProperty, _itemSourceBinding);
+            Loaded += ShellViewMetro_Loaded;
+        }
+
+        private void ShellViewMetro_Loaded(object sender, RoutedEventArgs e)
+        {
+            _eventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
         }
 
         #region IShell Members
@@ -116,6 +122,7 @@ namespace Wide.Shell
             }
             catch (Exception)
             {
+                //TODO : Do not surpress exception
             }
         }
 

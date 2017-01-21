@@ -70,13 +70,13 @@ namespace Wide.Shell
 
         protected override DependencyObject CreateShell()
         {
-            return (DependencyObject) Container.Resolve<IShell>();
+            return (DependencyObject)Container.Resolve<IShell>();
         }
 
         protected override void InitializeShell()
         {
             base.InitializeShell();
-            Application.Current.MainWindow = (Window) Shell;
+            Application.Current.MainWindow = (Window)Shell;
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Wide.Core.Settings
         }
 
         [UserScopedSetting()]
-        [DefaultSettingValue("Maximized")]
+        [DefaultSettingValue("Minimized")]
         public WindowState State
         {
             get { return (WindowState) this["State"]; }

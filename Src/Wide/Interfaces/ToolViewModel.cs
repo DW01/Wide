@@ -25,7 +25,7 @@ namespace Wide.Interfaces
         #region Members
 
         protected string _contentId = null;
-        protected bool _isActive = false;
+        protected bool _isActive = true;
         protected bool _isSelected = false;
         private bool _isVisible = true;
 
@@ -98,7 +98,7 @@ namespace Wide.Interfaces
         public virtual string Title
         {
             get { return _title; }
-            protected set
+            set
             {
                 if (_title != value)
                 {
