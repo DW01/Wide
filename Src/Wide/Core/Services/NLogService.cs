@@ -12,10 +12,10 @@
 
 using System.Diagnostics;
 using System.Reflection;
-using Microsoft.Practices.Prism.Events;
 using NLog;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Services;
+using Prism.Events;
 
 namespace Wide.Core.Services
 {

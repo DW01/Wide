@@ -13,9 +13,9 @@
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Prism.Events;
 using Wide.Interfaces.Controls;
 using Wide.Interfaces.Events;
+using Prism.Events;
 
 namespace Wide.Interfaces.Controls
 {

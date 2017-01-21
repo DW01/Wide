@@ -11,12 +11,12 @@
 #endregion
 
 using System.Windows;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using Wide.Core;
 using Wide.Interfaces;
 using Wide.Splash;
+using Prism.Unity;
+using Prism.Modularity;
 
 namespace Wide.Shell
 {

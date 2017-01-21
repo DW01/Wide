@@ -12,12 +12,12 @@
 
 using System.Configuration;
 using System.Windows;
-using Microsoft.Practices.Prism.Events;
 using Wide.Interfaces.Controls;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Settings;
 using Wide.Interfaces.Services;
 using System.Collections.Generic;
+using Prism.Events;
 
 namespace Wide.Core.Settings
 {

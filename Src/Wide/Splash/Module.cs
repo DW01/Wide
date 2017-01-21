@@ -14,11 +14,11 @@ using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
+using Prism.Modularity;
+using Prism.Events;
 
 namespace Wide.Splash
 {

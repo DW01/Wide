@@ -14,10 +14,10 @@ using System;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Unity;
+using Prism.Modularity;
+using Prism;
+using Prism.Common;
+using Prism.Events;
 using Wide.Interfaces;
 using Wide.Interfaces.Controls;
 using Wide.Interfaces.Events;
@@ -26,6 +26,8 @@ using Wide.Interfaces.Settings;
 using Wide.Interfaces.Themes;
 using WideMD.Core.Settings;
 using System.Windows;
+using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace WideMD.Core
 {
@@ -34,18 +36,16 @@ namespace WideMD.Core
     public class CoreModule : IModule
     {
         private IUnityContainer _container;
-        private IEventAggregator _eventAggregator;
 
-        public CoreModule(IUnityContainer container, IEventAggregator eventAggregator)
+        public CoreModule(IUnityContainer container)
         {
             _container = container;
-            _eventAggregator = eventAggregator;
         }
 
         public void Initialize()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Loading Core Module"});
+            new SplashMessageUpdateEvent().Publish(new SplashMessageUpdateEvent() { Message = "Loading Core Module" });
+
             LoadTheme();
             LoadCommands();
             LoadMenus();
@@ -56,17 +56,16 @@ namespace WideMD.Core
 
         private void LoadToolbar()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Toolbar.."});
+            new SplashMessageUpdateEvent().Publish(new SplashMessageUpdateEvent() { Message = "Toolbar.." });
             var toolbarService = _container.Resolve<IToolbarService>();
             var menuService = _container.Resolve<IMenuService>();
             var manager = _container.Resolve<ICommandManager>();
 
-            toolbarService.Add(new ToolbarViewModel("Standard", 1) {Band = 1, BandIndex = 1});
+            toolbarService.Add(new ToolbarViewModel("Standard", 1) { Band = 1, BandIndex = 1 });
             toolbarService.Get("Standard").Add(menuService.Get("_File").Get("_New"));
             toolbarService.Get("Standard").Add(menuService.Get("_File").Get("_Open"));
 
-            toolbarService.Add(new ToolbarViewModel("Edit", 1) {Band = 1, BandIndex = 2});
+            toolbarService.Add(new ToolbarViewModel("Edit", 1) { Band = 1, BandIndex = 2 });
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("_Undo"));
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("_Redo"));
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("Cut"));
@@ -104,8 +103,7 @@ namespace WideMD.Core
 
         private void LoadTheme()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Themes.."});
+            new SplashMessageUpdateEvent().Publish(new SplashMessageUpdateEvent() { Message = "Themes.." });
             var manager = _container.Resolve<IThemeManager>();
             var themeSettings = _container.Resolve<IThemeSettings>();
             var win = _container.Resolve<IShell>() as Window;
@@ -116,8 +114,7 @@ namespace WideMD.Core
 
         private void LoadCommands()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Commands.."});
+            new SplashMessageUpdateEvent().Publish(new SplashMessageUpdateEvent() { Message = "Commands.." });
             var manager = _container.Resolve<ICommandManager>();
 
             var openCommand = new DelegateCommand(OpenModule);
@@ -144,8 +141,7 @@ namespace WideMD.Core
 
         private void LoadMenus()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Menus.."});
+            new SplashMessageUpdateEvent().Publish(new SplashMessageUpdateEvent() { Message = "Menus.." });
             var manager = _container.Resolve<ICommandManager>();
             var menuService = _container.Resolve<IMenuService>();
             var settingsManager = _container.Resolve<ISettingsManager>();
@@ -181,7 +177,7 @@ namespace WideMD.Core
                                                    new BitmapImage(
                                                        new Uri(
                                                            @"pack://application:,,,/WideMD.Core;component/Icons/Save_6530.png")),
-                                                   manager.GetCommand("SAVEAS"),null,false,false,_container));
+                                                   manager.GetCommand("SAVEAS"), null, false, false, _container));
 
             menuService.Get("_File").Add(new MenuItemViewModel("Close", 8, null, manager.GetCommand("CLOSE"),
                                                                new KeyGesture(Key.F4, ModifierKeys.Control, "Ctrl + F4")));
@@ -228,25 +224,25 @@ namespace WideMD.Core
                                                                        new Uri(
                                                                            @"pack://application:,,,/WideMD.Core;component/Icons/Undo_16x.png")),
                                                                    manager.GetCommand("LOGSHOW"))
-                                                 {IsCheckable = true, IsChecked = logger.IsVisible});
+                { IsCheckable = true, IsChecked = logger.IsVisible });
 
             menuService.Get("_View").Add(new MenuItemViewModel("Themes", 1));
 
             //Set the checkmark of the theme menu's based on which is currently selected
             menuService.Get("_View").Get("Themes").Add(new MenuItemViewModel("Dark", 1, null,
                                                                              manager.GetCommand("THEMECHANGE"))
-                                                           {
-                                                               IsCheckable = true,
-                                                               IsChecked = (themeSettings.SelectedTheme == "Dark"),
-                                                               CommandParameter = "Dark"
-                                                           });
+            {
+                IsCheckable = true,
+                IsChecked = (themeSettings.SelectedTheme == "Dark"),
+                CommandParameter = "Dark"
+            });
             menuService.Get("_View").Get("Themes").Add(new MenuItemViewModel("Light", 2, null,
                                                                              manager.GetCommand("THEMECHANGE"))
-                                                           {
-                                                               IsCheckable = true,
-                                                               IsChecked = (themeSettings.SelectedTheme == "Light"),
-                                                               CommandParameter = "Light"
-                                                           });
+            {
+                IsCheckable = true,
+                IsChecked = (themeSettings.SelectedTheme == "Light"),
+                CommandParameter = "Light"
+            });
 
             menuService.Add(new MenuItemViewModel("_Tools", 4));
             menuService.Get("_Tools").Add(new MenuItemViewModel("Settings", 1, null, settingsManager.SettingsCommand));
@@ -281,7 +277,7 @@ namespace WideMD.Core
         private bool CanExecuteSaveAsDocument()
         {
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
-            return (workspace.ActiveDocument != null) ;
+            return (workspace.ActiveDocument != null);
         }
 
         private void SaveDocument()
