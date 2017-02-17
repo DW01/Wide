@@ -25,9 +25,9 @@ namespace Wide.Interfaces
         #region Members
 
         protected string _contentId = null;
-        protected bool _isActive = true;
+        protected bool _isActive = false;
         protected bool _isSelected = false;
-        private bool _isVisible = true;
+        private bool _isVisible = false;
 
         protected string _title = null;
 

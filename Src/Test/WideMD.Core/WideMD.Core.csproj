@@ -145,6 +145,12 @@
   <ItemGroup>
     <Resource Include="Icons\Play.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Wide.Tools.Logger\Wide.Tools.Logger.csproj">
+      <Project>{982d3282-82a0-4586-99ed-f60d2fd67517}</Project>
+      <Name>Wide.Tools.Logger</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -38,7 +38,7 @@ namespace Wide.Tools.Logger
         public void Initialize()
         {
             EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                             {Message = "Loading Logger Module"});
+                                                                             {Message = "aaaaaLoading Logger Module"});
             _container.RegisterType<LoggerViewModel>();
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             workspace.Tools.Add(_container.Resolve<LoggerViewModel>());
