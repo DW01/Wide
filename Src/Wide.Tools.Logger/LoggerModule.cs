@@ -10,9 +10,9 @@
 
 #endregion
 
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
+using Prism.Events;
+using Prism.Modularity;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
 
@@ -38,7 +38,7 @@ namespace Wide.Tools.Logger
         public void Initialize()
         {
             EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                             {Message = "Loading Logger Module"});
+                                                                             {Message = "aaaaaLoading Logger Module"});
             _container.RegisterType<LoggerViewModel>();
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             workspace.Tools.Add(_container.Resolve<LoggerViewModel>());

@@ -13,7 +13,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Unity;
 using Microsoft.Win32;
 using Wide.Core.Attributes;
@@ -22,6 +21,7 @@ using Wide.Interfaces;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Services;
 using Wide.Interfaces.Settings;
+using Prism.Events;
 
 namespace Wide.Core.Services
 {

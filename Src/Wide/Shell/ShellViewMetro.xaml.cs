@@ -17,7 +17,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
@@ -26,6 +25,7 @@ using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Wide.Interfaces.Converters;
+using Prism.Events;
 
 namespace Wide.Shell
 {
@@ -61,6 +61,12 @@ namespace Wide.Shell
             docMenus.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             _itemSourceBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             _docContextMenu.SetBinding(ContextMenu.ItemsSourceProperty, _itemSourceBinding);
+            Loaded += ShellViewMetro_Loaded;
+        }
+
+        private void ShellViewMetro_Loaded(object sender, RoutedEventArgs e)
+        {
+            _eventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
         }
 
         #region IShell Members
@@ -116,6 +122,7 @@ namespace Wide.Shell
             }
             catch (Exception)
             {
+                //TODO : Do not surpress exception
             }
         }
 

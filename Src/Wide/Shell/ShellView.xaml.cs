@@ -14,7 +14,6 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
@@ -22,6 +21,7 @@ using Wide.Interfaces.Services;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using Prism.Events;
 
 namespace Wide.Shell
 {

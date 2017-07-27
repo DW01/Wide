@@ -14,11 +14,14 @@ using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
+using Prism.Modularity;
+using Prism.Events;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Linq;
 
 namespace Wide.Splash
 {
@@ -53,11 +56,10 @@ namespace Wide.Splash
         public void Initialize()
         {
             Dispatcher.CurrentDispatcher.BeginInvoke(
-                (Action) (() =>
-                              {
-                                  Shell.Show();
-                                  EventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
-                              }));
+                (Action)(() =>
+                             {
+                                 Shell.Show();
+                             }));
 
             WaitForCreation = new AutoResetEvent(false);
 
@@ -65,36 +67,36 @@ namespace Wide.Splash
                 () =>
                     {
                         Dispatcher.CurrentDispatcher.BeginInvoke(
-                            (Action) (() =>
-                                          {
-                                              Container.RegisterType<SplashViewModel, SplashViewModel>();
-                                              ISplashView iSplashView;
-                                              try
-                                              {
+                            (Action)(() =>
+                                         {
+                                             Container.RegisterType<SplashViewModel, SplashViewModel>();
+                                             ISplashView iSplashView;
+                                             try
+                                             {
                                                   //The end user might have set a splash view - try to use that
                                                   iSplashView = Container.Resolve<ISplashView>();
-                                              }
-                                              catch (Exception)
-                                              {
-                                                  Container.RegisterType<ISplashView, SplashView>();
-                                                  iSplashView = Container.Resolve<ISplashView>();
-                                              }
-                                              var splash = iSplashView as Window;
-                                              if (splash != null)
-                                              {
-                                                  EventAggregator.GetEvent<SplashCloseEvent>().Subscribe(
-                                                      e_ => splash.Dispatcher.BeginInvoke((Action) splash.Close),
-                                                      ThreadOption.PublisherThread, true);
+                                             }
+                                             catch (Exception)
+                                             {
+                                                 Container.RegisterType<ISplashView, SplashView>();
+                                                 iSplashView = Container.Resolve<ISplashView>();
+                                             }
+                                             var splash = iSplashView as Window;
+                                             if (splash != null)
+                                             {
+                                                 EventAggregator.GetEvent<SplashCloseEvent>().Subscribe(
+                                                     e_ => splash.Dispatcher.BeginInvoke((Action)splash.Close),
+                                                     ThreadOption.PublisherThread, true);
 
-                                                  splash.Show();
-                                                  WaitForCreation.Set();
-                                              }
-                                          }));
+                                                 splash.Show();
+                                                 WaitForCreation.Set();
+                                             }
+                                         }));
 
                         Dispatcher.Run();
                     };
 
-            var thread = new Thread(showSplash) {Name = "Splash Thread", IsBackground = true};
+            var thread = new Thread(showSplash) { Name = "Splash Thread", IsBackground = true };
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
 

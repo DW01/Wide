@@ -10,9 +10,9 @@
 
 #endregion
 
+using Prism.Modularity;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Practices.Prism.Modularity;
 
 namespace WideMD
 {

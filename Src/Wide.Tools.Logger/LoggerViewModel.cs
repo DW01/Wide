@@ -10,11 +10,11 @@
 
 #endregion
 
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Services;
+using Prism.Events;
+using Microsoft.Practices.Unity;
 
 namespace Wide.Tools.Logger
 {

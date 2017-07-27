@@ -10,9 +10,9 @@
 
 #endregion
 
+using Prism.Events;
 using System.Configuration;
 using System.Windows;
-using Microsoft.Practices.Prism.Events;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Settings;
 
@@ -71,7 +71,7 @@ namespace Wide.Core.Settings
         }
 
         [UserScopedSetting()]
-        [DefaultSettingValue("Maximized")]
+        [DefaultSettingValue("Minimized")]
         public WindowState State
         {
             get { return (WindowState) this["State"]; }

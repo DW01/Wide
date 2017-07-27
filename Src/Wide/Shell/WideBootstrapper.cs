@@ -11,12 +11,12 @@
 #endregion
 
 using System.Windows;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using Wide.Core;
 using Wide.Interfaces;
 using Wide.Splash;
+using Prism.Unity;
+using Prism.Modularity;
 
 namespace Wide.Shell
 {
@@ -70,13 +70,13 @@ namespace Wide.Shell
 
         protected override DependencyObject CreateShell()
         {
-            return (DependencyObject) Container.Resolve<IShell>();
+            return (DependencyObject)Container.Resolve<IShell>();
         }
 
         protected override void InitializeShell()
         {
             base.InitializeShell();
-            Application.Current.MainWindow = (Window) Shell;
+            Application.Current.MainWindow = (Window)Shell;
         }
     }
 }

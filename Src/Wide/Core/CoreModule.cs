@@ -14,9 +14,6 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
 using Wide.Core.Services;
 using Wide.Core.Settings;
@@ -29,6 +26,9 @@ using Wide.Interfaces.Settings;
 using Wide.Shell;
 using CommandManager = Wide.Core.Services.CommandManager;
 using System.ComponentModel;
+using Prism.Modularity;
+using Prism.Events;
+using Prism.Commands;
 
 namespace Wide.Core
 {
@@ -85,8 +85,7 @@ namespace Wide.Core
         /// </summary>
         public void Initialize()
         {
-            EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                             {Message = "Loading Core Module"});
+            new SplashMessageUpdateEvent().Publish(new SplashMessageUpdateEvent() { Message = "Loading Core Module" });
             _container.RegisterType<TextViewModel>();
             _container.RegisterType<TextModel>();
             _container.RegisterType<TextView>();
@@ -105,26 +104,26 @@ namespace Wide.Core
             _container.RegisterType<IToolbarService, ToolbarService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IMenuService, MenuItemViewModel>(new ContainerControlledLifetimeManager(),
                                                                      new InjectionConstructor(
-                                                                         new InjectionParameter(typeof (string),
+                                                                         new InjectionParameter(typeof(string),
                                                                                                 "$MAIN$"),
-                                                                         new InjectionParameter(typeof (int), 1),
+                                                                         new InjectionParameter(typeof(int), 1),
                                                                          new InjectionParameter(
-                                                                             typeof (ImageSource), null),
-                                                                         new InjectionParameter(typeof (ICommand),
+                                                                             typeof(ImageSource), null),
+                                                                         new InjectionParameter(typeof(ICommand),
                                                                                                 null),
                                                                          new InjectionParameter(
-                                                                             typeof (KeyGesture), null),
-                                                                         new InjectionParameter(typeof (bool), false),
-                                                                         new InjectionParameter(typeof (bool), false),
+                                                                             typeof(KeyGesture), null),
+                                                                         new InjectionParameter(typeof(bool), false),
+                                                                         new InjectionParameter(typeof(bool), false),
                                                                          new InjectionParameter(
-                                                                             typeof (IUnityContainer), _container)));
+                                                                             typeof(IUnityContainer), _container)));
             _container.RegisterType<ToolbarViewModel>(
-                new InjectionConstructor(new InjectionParameter(typeof (string), "$MAIN$"),
-                                         new InjectionParameter(typeof (int), 1),
-                                         new InjectionParameter(typeof (ImageSource), null),
-                                         new InjectionParameter(typeof (ICommand), null),
-                                         new InjectionParameter(typeof (bool), false),
-                                         new InjectionParameter(typeof (IUnityContainer), _container)));
+                new InjectionConstructor(new InjectionParameter(typeof(string), "$MAIN$"),
+                                         new InjectionParameter(typeof(int), 1),
+                                         new InjectionParameter(typeof(ImageSource), null),
+                                         new InjectionParameter(typeof(ICommand), null),
+                                         new InjectionParameter(typeof(bool), false),
+                                         new InjectionParameter(typeof(IUnityContainer), _container)));
 
             _container.RegisterType<ISettingsManager, SettingsManager>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IOpenDocumentService, OpenDocumentService>(new ContainerControlledLifetimeManager());
@@ -171,7 +170,7 @@ namespace Wide.Core
             var closeCommand = new DelegateCommand<object>(CloseDocument, CanExecuteCloseDocument);
             manager.RegisterCommand("CLOSE", closeCommand);
 
-            
+
             manager.RegisterCommand("NEW", registry.NewCommand);
         }
 

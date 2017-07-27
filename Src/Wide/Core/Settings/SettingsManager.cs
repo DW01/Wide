@@ -10,8 +10,8 @@
 
 #endregion
 
+using Prism.Commands;
 using System.Windows.Input;
-using Microsoft.Practices.Prism.Commands;
 using Wide.Interfaces.Settings;
 
 namespace Wide.Core.Settings
